@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: 'Casad-Serial-Heavy Regular';
+  src: url('/src/assets/Casad-Serial-Heavy Regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
