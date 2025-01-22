@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/silicon-feed/static/css/main.c20c80e6.css",
+    "main.js": "/silicon-feed/static/js/main.7d56356d.js",
+    "static/js/488.5a51e96e.chunk.js": "/silicon-feed/static/js/488.5a51e96e.chunk.js",
+    "static/media/Casad-Serial-Heavy Regular.ttf": "/silicon-feed/static/media/Casad-Serial-Heavy Regular.80713ad04891532b79d1.ttf",
+    "static/media/logo.png": "/silicon-feed/static/media/logo.105d78824c3a9076f268.png",
+    "index.html": "/silicon-feed/index.html",
+    "main.c20c80e6.css.map": "/silicon-feed/static/css/main.c20c80e6.css.map",
+    "main.7d56356d.js.map": "/silicon-feed/static/js/main.7d56356d.js.map",
+    "488.5a51e96e.chunk.js.map": "/silicon-feed/static/js/488.5a51e96e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c20c80e6.css",
+    "static/js/main.7d56356d.js"
+  ]
+}
