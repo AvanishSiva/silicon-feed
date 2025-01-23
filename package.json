@@ -1,5 +1,5 @@
 {
-  "homepage": "https://AvanishSiva.github.io/silicon-feed",
+  "homepage": "https://silicon-feed.onrender.com",
   "name": "silicon-feed",
   "version": "0.1.0",
   "private": true,
@@ -9,13 +9,11 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.2",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -41,10 +39,5 @@
   "devDependencies": {
     "gh-pages": "^6.3.0",
     "tailwindcss": "^3.4.17"
-  },
-  "engines": {
-  "node": "16.x", 
-  "npm": "8.x"
-}
-
+  }
 }
