@@ -19,6 +19,9 @@ admin.initializeApp({
 const db = admin.firestore();
 
 app.use(cors())
+const allowedOrigins = ['https://silicon-feed.onrender.com']; 
+app.use(cors({ origin: allowedOrigins }));
+
 app.use(bodyParser.json());
 
 app.get('/api/articles', async (req,res) => {

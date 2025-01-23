@@ -12,7 +12,7 @@ const ArticleList = () => {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const response = await axios.get("http://localhost:5002/api/articles");
+                const response = await axios.get("https://silicon-feed-backend.onrender.com/api/articles");
                 setPosts(response.data);
             } catch (err) {
                 console.error(err);
