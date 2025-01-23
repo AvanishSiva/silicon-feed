@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import NavBar from '../components/NavBar';
 import { useLocation } from 'react-router-dom';
 import Footer from '../components/Footer';
+import AuthorSection from '../components/AutorSection';
 
 const ArticlePage = () => {
 
@@ -48,6 +49,7 @@ const ArticlePage = () => {
                 </p>
           ))}
         </div>
+        <AuthorSection author = {data.author}></AuthorSection>
       </div>
       <Footer></Footer>
     </div>

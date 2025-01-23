@@ -11,7 +11,15 @@ const Home = () => {
         {
             title: "Steve Jobs : A Crazy Person",
             image: "https://images.pexels.com/photos/29871288/pexels-photo-29871288/free-photo-of-vintage-apple-computers-display-in-tokyo.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            author: "Sivaavanish K",
+            author: {
+                name : "Sivaavanish K",
+                description : "Software Developer",
+                handlers : {
+                    mail : "sivaavanishk@gmail.com",
+                    github : "https://github.com/AvanishSiva",
+                    linkedIn : "https://www.linkedin.com/in/sivaavanish-k-5b6899203/"
+                }
+            },
             description: "A story of how Steve Jobs transformed skepticism into groundbreaking success, inspiring his team to achieve the impossible.",
             contents :[
                 {para : "In the early 1980s, Steve Jobs had a dream: to create a computer that would redefine the way people interacted with technology. He envisioned the Macintosh not just as a tool but as a piece of art—beautiful, intuitive, and accessible to everyone. At the time, this vision seemed audacious, even impossible. Apple was still a young company, and the technological limitations of the era were daunting. Yet, Jobs believed deeply in his vision, even when others doubted it."},
@@ -85,7 +93,7 @@ const Home = () => {
 
                         {/* Content Section */}
                         <div className="px-4 mx-10 font-sans">
-                            <p className="text-gray-500">by {post.author}</p>
+                            <p className="text-gray-500">by {post.author.name}</p>
                             <h3 className="text-4xl font-bold">{post.title}</h3>
                         </div>
                     </Link>
