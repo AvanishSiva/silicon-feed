@@ -25,7 +25,7 @@ const AuthorSection = (props) => {
             <div className="flex items-center mt-2 space-x-4">
               {/* Social Icons */}
               <a
-                href={`mailto:${props.author.handlers.mail}`}
+                href={`mailto:${props.author.mail}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-red-500"
@@ -33,7 +33,7 @@ const AuthorSection = (props) => {
                 <FontAwesomeIcon icon={faGoogle} size="lg" />
               </a>
               <a
-                href={props.author.handlers.github}
+                href={props.author.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-black"
@@ -41,7 +41,7 @@ const AuthorSection = (props) => {
                 <FontAwesomeIcon icon={faGithub} size="lg" />
               </a>
               <a
-                href={props.author.handlers.linkedIn}
+                href={props.author.linkedIn}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-600 hover:text-blue-700"

@@ -44,8 +44,9 @@ const ArticlePage = () => {
         <div className="max-w-7xl mx-auto">
           {/* <h2 className="text-4xl font-semibold text-black mb-6">Exploring the Future</h2> */}
           {data.contents.map((content, index) => (
+                
                 <p className="text-lg text-gray-700 mb-4">
-                    {content.para}
+                    {content}
                 </p>
           ))}
         </div>
