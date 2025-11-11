@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 import hashlib
 from db import save_article
+from datetime import datetime
 
 def get_requests(url):
     try:
@@ -65,7 +66,8 @@ def parse_rss_feed(root):
             'description': description_text,
             'author': author,
             'hash_id': hash_id,
-            'tags': tags
+            'tags': tags,
+            'created_at' : datetime.utcnow()
         })
     
     return articles
@@ -114,7 +116,8 @@ def parse_atom_feed(root):
             'description': description_text,
             'author': author,
             'hash_id': hash_id,
-            'tags': tags
+            'tags': tags,
+            'created_at' : datetime.utcnow()
         })
     
     return articles
@@ -160,7 +163,7 @@ if __name__ == "__main__":
         articles = get_articles_from_feed(feed_url)
         all_articles.extend(articles)
         print(f"Found {len(articles)} articles from {source_name}")
-        \
+        
         # Print first article as sample
         if articles:
             print(f"\nSample article:")
