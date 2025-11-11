@@ -2,6 +2,7 @@ import requests
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 import hashlib
+from db import save_article
 
 def get_requests(url):
     try:
@@ -159,7 +160,7 @@ if __name__ == "__main__":
         articles = get_articles_from_feed(feed_url)
         all_articles.extend(articles)
         print(f"Found {len(articles)} articles from {source_name}")
-        
+        \
         # Print first article as sample
         if articles:
             print(f"\nSample article:")
@@ -172,3 +173,9 @@ if __name__ == "__main__":
     print("\n" + "="*50)
     print("SUMMARY")
     print("="*50)
+
+    #Insert into MongoDB. 
+    for article in all_articles:
+        save_article(article)
+    print(f"\nTotal articles fetched: {len(all_articles)}")
+
