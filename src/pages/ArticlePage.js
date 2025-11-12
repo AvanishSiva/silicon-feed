@@ -8,6 +8,7 @@ const ArticlePage = () => {
 
     const location = useLocation();
     const data = location.state;
+    console.log(data);
 
     useEffect(() => {
         window.scrollTo(0, 0); 
@@ -43,12 +44,17 @@ const ArticlePage = () => {
       <div className="bg-white py-12 px-6 sm:px-12">
         <div className="max-w-7xl mx-auto">
           {/* <h2 className="text-4xl font-semibold text-black mb-6">Exploring the Future</h2> */}
-          {data.contents.map((content, index) => (
+          {/* {data.contents.map((content, index) => (
                 
                 <p className="text-lg text-gray-700 mb-4">
                     {content}
                 </p>
-          ))}
+          ))} */}
+          {
+            <p className="text-lg text-gray-700 mb-4">
+              {data.summary}
+            </p>
+          }
         </div>
         <AuthorSection author = {data.author}></AuthorSection>
       </div>

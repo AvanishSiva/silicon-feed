@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "../components/Loading";
 import { Link } from "react-router-dom";
+import articles from "../assets/summaries.json";
 
 
 const ArticleList = () => {
@@ -12,8 +13,7 @@ const ArticleList = () => {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const response = await axios.get("https://silicon-feed-backend.onrender.com/api/articles");
-                setPosts(response.data);
+                setPosts(articles);
             } catch (err) {
                 console.error(err);
                 setError(err.message);
@@ -36,6 +36,7 @@ const ArticleList = () => {
     return (
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 p-6">
             {posts.map((post, index) => (
+                console.log(post),
                 <Link
                     key={index}
                     to={`/articles/${post.title.replace(/\s+/g, "-").toLowerCase()}`}
