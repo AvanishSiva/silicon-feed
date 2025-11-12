@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 def fetch_todays_articles():
     db = get_db_connection()
     collection = db['articles']
-    today = datetime.utcnow().date() - timedelta(days=1)
+    today = datetime.utcnow().date()
     tomorrow = today + timedelta(days=1)
 
     articles = db.articles.find({

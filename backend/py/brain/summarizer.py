@@ -7,6 +7,9 @@ from brain.clustering import cluster_articles
 
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
+from db import get_db_connection
+from datetime import datetime
+
 
 def build_cluster_text(articles, cluster_indices):
     combined_text = ""
@@ -53,6 +56,16 @@ def run_summarization():
         #title generation 
         title = generate_title(summary)
 
+
+        #Addeing it into Database
+
+        db = get_db_connection()
+        collection = db['summaries']
+        collection.insert_one({
+            'title' : title,
+            'summary' : summary,
+            'created_at': datetime.utcnow()
+        })
 
         print(f"\n--- Title {title} ---")
         print(summary)
