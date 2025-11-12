@@ -1,7 +1,7 @@
 from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-def cluster_articles(corpus, num_clusters=5):
+def cluster_articles(corpus, num_clusters=10):
     vectorizer = TfidfVectorizer(stop_words='english', max_features=5000)
     X = vectorizer.fit_transform(corpus)
 
@@ -13,4 +13,5 @@ def cluster_articles(corpus, num_clusters=5):
     for idx, label in enumerate(labels):
         clusters.setdefault(label, []).append(idx)
 
+    print(f"Formed {len(clusters)} clusters.")
     return clusters

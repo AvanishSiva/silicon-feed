@@ -6,7 +6,7 @@ def run_clustering():
     print(f"Today's articles count: {len(articles)}")
 
     corpus = prepare_corpus(articles)
-    clusters = cluster_articles(corpus, num_clusters=5)
+    clusters = cluster_articles(corpus, num_clusters=10)
 
     for cluster_id, article_indices in clusters.items():
         print(f"\nCluster {cluster_id}:")
