@@ -1,11 +1,16 @@
+from brain.pipeline import run_clustering
+# from brain.fetcher import fetch_todays_articles
+# from brain.fetcher import prepare_corpus
+# from brain.clustering import cluster_articles
 
-from brain.fetcher import fetch_todays_articles
-from brain.fetcher import prepare_corpus
+# articles = fetch_todays_articles()
+# print(f"Today's articles count: {len(articles)}")
 
-articles = fetch_todays_articles()
-print(f"Today's articles count: {len(articles)}")
+# corpuses = prepare_corpus(articles)
+# for corpus in corpuses:
+#     print(f"\nCorpus:\n{corpus}\n")
 
-corpuses = prepare_corpus(articles)
-for corpus in corpuses:
-    print(f"\nCorpus:\n{corpus}\n")
+# cluster_articles(corpuses, num_clusters=5)
+
+run_clustering()
 
