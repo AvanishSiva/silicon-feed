@@ -56,6 +56,29 @@ def parse_rss_feed(root):
         author = author.text if author is not None and author.text else "Unknown"
         
         hash_id = get_article_hash(link)
+
+        # Extract Image
+        image_url = None
+        # 1. Try media:content
+        media = item.find('{http://search.yahoo.com/mrss/}content')
+        if media is not None:
+            image_url = media.get('url')
+        
+        # 2. Try enclosure
+        if not image_url:
+            enclosure = item.find('enclosure')
+            if enclosure is not None and enclosure.get('type', '').startswith('image'):
+                image_url = enclosure.get('url')
+        
+        # 3. Try parsing description for <img src="...">
+        if not image_url and description is not None and description.text:
+            soup = BeautifulSoup(description.text, "html.parser")
+            img_tag = soup.find('img')
+            if img_tag:
+                image_url = img_tag.get('src')
+        
+        if not image_url:
+            image_url = "No image"
         
         # Get categories/tags
         tags = [tag.text for tag in item.findall('category') if tag.text]
@@ -65,6 +88,7 @@ def parse_rss_feed(root):
             'link': link,
             'description': description_text,
             'author': author,
+            'image': image_url,
             'hash_id': hash_id,
             'tags': tags,
             'created_at' : datetime.utcnow()
@@ -106,6 +130,34 @@ def parse_atom_feed(root):
             author = "Unknown"
         
         hash_id = get_article_hash(link)
+
+        # Extract Image
+        image_url = None
+        # 1. Try link with rel="enclosure" and type="image/..."
+        # Note: Namespaces in findall can be tricky, iterating all links is safer if specific query fails
+        for l in entry.findall('atom:link', namespaces):
+            if l.get('rel') == 'enclosure' and l.get('type', '').startswith('image'):
+                image_url = l.get('href')
+                break
+        
+        # 2. Try parsing content/summary for <img src="...">
+        if not image_url:
+            html_content = None
+            if content is not None and content.text:
+                html_content = content.text
+            elif entry.find('atom:summary', namespaces) is not None:
+                sm = entry.find('atom:summary', namespaces)
+                if sm.text:
+                    html_content = sm.text
+            
+            if html_content:
+                soup = BeautifulSoup(html_content, "html.parser")
+                img_tag = soup.find('img')
+                if img_tag:
+                    image_url = img_tag.get('src')
+
+        if not image_url:
+            image_url = "No image"
         
         # Get categories
         tags = [cat.get('term') for cat in entry.findall('atom:category', namespaces) if cat.get('term')]
@@ -115,6 +167,7 @@ def parse_atom_feed(root):
             'link': link,
             'description': description_text,
             'author': author,
+            'image': image_url,
             'hash_id': hash_id,
             'tags': tags,
             'created_at' : datetime.utcnow()
@@ -181,4 +234,3 @@ if __name__ == "__main__":
     for article in all_articles:
         save_article(article)
     print(f"\nTotal articles fetched: {len(all_articles)}")
-

@@ -1,0 +1,315 @@
+/Users/sivaavanish/Projects/SiliconFeed/silicon-feed/backend/py/Collector.py:94: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  'created_at' : datetime.utcnow()
+/Users/sivaavanish/Projects/SiliconFeed/silicon-feed/backend/py/Collector.py:173: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  'created_at' : datetime.utcnow()
+/Users/sivaavanish/Projects/SiliconFeed/silicon-feed/backend/py/Collector.py:48: MarkupResemblesLocatorWarning: The input looks more like a filename than markup. You may want to open this file and pass the filehandle into Beautiful Soup.
+  description_text = BeautifulSoup(description.text, "html.parser").get_text(separator="\n", strip=True)
+
+Fetching articles from TechCrunch...
+Found 21 articles from TechCrunch
+
+Sample article:
+  Title: How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)...
+  Author: noreply@blogger.com (Unknown)
+  Link: https://techncruncher.blogspot.com/2025/12/how-i-get-free-traffic-from-chatgpt-in.html
+  Tags: 
+
+Fetching articles from The Verge...
+Found 10 articles from The Verge
+
+Sample article:
+  Title: Google just leaked a first look at Android for PC in action...
+  Author: Dominic Preston
+  Link: https://www.theverge.com/news/869142/google-leak-aluminium-os-android-pc-bug-report-video
+  Tags: Android, Chrome, Chromebook, Google, News
+
+Fetching articles from Ars Technica...
+Found 20 articles from Ars Technica
+
+Sample article:
+  Title: Dozens of CDC vaccination databases have been frozen under RFK Jr....
+  Author: 
+                    Beth Mole
+                
+  Link: https://arstechnica.com/health/2026/01/rfk-jr-lets-cdc-vaccination-data-rot-dozens-of-databases-frozen/
+  Tags: Health, CDC, data, database, robert f kennedy jr
+
+Fetching articles from Mashable...
+Found 100 articles from Mashable
+
+Sample article:
+  Title: Doomsday Clock now closest to midnight ever...
+  Author: Unknown
+  Link: https://mashable.com/article/doomsday-clock-2026-seconds-close-to-midnight
+  Tags: 
+
+Fetching articles from Engadget...
+Found 50 articles from Engadget
+
+Sample article:
+  Title: The best robot vacuums on a budget for 2026...
+  Author: Valentina Palladino
+  Link: https://www.engadget.com/home/smart-home/best-budget-robot-vacuums-133030847.html?src=rss
+  Tags: 
+                            Robots
+                        , 
+                            Technology & Electronics
+                        , 
+                            Consumer Discretionary
+                        , 
+                            site|engadget
+                        , 
+                            provider_name|Engadget
+                        
+
+Fetching articles from VentureBeat...
+Found 7 articles from VentureBeat
+
+Sample article:
+  Title: SOC teams are automating triage — but 40% will fail without governance boundarie...
+  Author: louiswcolumbus@gmail.com (Louis Columbus)
+  Link: https://venturebeat.com/security/tier-1-soc-work-becoming-code-architectural-decisions-hours-minutes-response
+  Tags: Security
+
+Fetching articles from Gizmodo...
+Found 20 articles from Gizmodo
+
+Sample article:
+  Title: Tim Cook Wants ‘Deescalation’ in Minneapolis...
+  Author: Mike Pearl
+  Link: https://gizmodo.com/tim-cook-wants-deescalation-in-minneapolis-2000714854
+  Tags: Gadgets
+
+==================================================
+SUMMARY
+==================================================
+Article saved: How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)
+Article saved: Top 10 AI Tools That Will Transform Your Content Creation in 2025
+Article saved: LimeWire AI Studio Review 2023: Details, Pricing & Features
+Article saved: Top 10 AI Tools in 2023 That Will Make Your Life Easier
+Article saved: Top 10 AI Content Generator & Writer Tools in 2022
+Article saved: Beginner Guide to CJ Affiliate (Commission Junction) in 2022
+Article saved: TOP 11 AI MARKETING TOOLS YOU SHOULD USE (Updated 2022)
+Article saved: Most Frequently Asked Questions About Affiliate Marketing
+Article saved: What is Blockchain: Everything You Need to Know (2022)
+Article saved: ProWritingAid VS Grammarly: Which Grammar Checker is Better in (2022) ?
+Article saved: Sellfy Review 2022: How Good Is This Ecommerce Platform?
+Article saved: Ahrefs vs SEMrush: Which SEO Tool Should You Use?
+Article saved: Top 10 Best PLR(Private Label Rights)  Websites | Which One You Should Join in 2022?
+Article saved: Canva Review 2022: Details, Pricing & Features
+Article saved: Top 7 Best Wordpress Plugin Of All Time
+Article saved: Ginger VS Grammarly: Which Grammar Checker is Better in (2022) ?
+Article saved: Most Frequently Asked Questions About NFTs(Non-Fungible Tokens)
+Article saved: 10 Best Chrome Extensions That Are Perfect for Everyone
+Article saved: Most Frequently Asked Questions About  Email Marketing
+Article saved: 7 Free Websites Every Content Creator Needs to Know
+Article saved: Top 9 Free AI Tools That Make Your Life Easier
+Article saved: Google just leaked a first look at Android for PC in action
+Article saved: The crypto bill is falling apart in Congress
+Article saved: The best Android phones
+Article saved: Meta is spending millions to convince people that data centers are cool and you like them
+Article saved: Moltbot, the AI agent that &#8216;actually does things,&#8217; is tech’s new obsession
+Article saved: The best budget robot vacuums
+Article saved: The winter storm tested power grids straining to accommodate AI data centers
+Article saved: The best fitness trackers and watches we’ve tested
+Article saved: Razer’s testing a new tool for customizing its keyboards in your browser
+Article saved: Amazon shutters all of its physical Go and Fresh stores
+Article saved: Dozens of CDC vaccination databases have been frozen under RFK Jr.
+Article saved: TikTok users “absolutely justified” for fearing MAGA makeover, experts say
+Article saved: There's a rash of scam spam coming from a real Microsoft address
+Article saved: Supreme Court to decide how 1988 videotape privacy law applies to online video
+Article saved: A WB-57 pilot just made a heroic landing in Houston after its landing gear failed
+Article saved: LG's new subscription program charges up to £277 per month to rent a TV 
+Article saved: “IG is a drug”: Internal messages may doom Meta at social media addiction trial
+Article saved: Australian plumber is a YouTube sensation
+Article saved: AI Overviews gets upgraded to Gemini 3 with a dash of AI Mode
+Article saved: Volvo invented the three-point seat belt 67 years ago; now it has improved it
+Article saved: Apple patches ancient iOS versions to keep iMessage, FaceTime, other services working
+Article saved: Trade wars muzzle allied talks on Trump's Golden Dome missile shield
+Article saved: Why NASA, IMSA, and tech companies are teaming up on tech transfer
+Article saved: Meet the mysterious electrides
+Article saved: As data from space spikes, an innovative ground station company seeks to cash in
+Article saved: OpenAI spills technical details about how its AI coding agent works
+Article saved: Doctors face-palm as RFK Jr.’s top vaccine advisor questions need for polio shot
+Article saved: Why has Microsoft been routing example.com traffic to a company in Japan?
+Article saved: Apple's AirTag 2 is easier to find thanks to new chip
+Article saved: “Wildly irresponsible”: DOT's use of AI to draft safety rules sparks concerns
+Article saved: Doomsday Clock now closest to midnight ever
+Article saved: How to watch Napoli vs. Chelsea online for free
+Article saved: How to watch Shelton vs. Sinner online for free
+Article saved: How to watch Liverpool vs. Qarabag online for free
+Article saved: NYT Connections hints today: Clues, answers for January 28, 2026
+Article saved: NYT Strands hints, answers for January 28, 2026
+Article saved: Wordle today: Answer, hints for January 28, 2026
+Article saved: Clawdbot has officially changed its name for very predictable reasons
+Article saved: Work smarter with side-by-side results from today’s top AI models thanks to this tool
+Article saved: How to watch Musetti vs. Djokovic online for free
+Article saved: How to watch the 2026 Australian Open online for free
+Article saved: Clawdbot is a viral AI assistant: What it is, how to try it
+Article saved: TikTok says its investigating its Epstein problem
+Article saved: Turn complex ideas into clear visuals with this $10 Microsoft tool
+Article saved: How to watch Pegula vs. Anisimova online for free
+Article saved: TikTok settles as Meta and Google face jury in social media addiction suit
+Article saved: People are joking about Signal alternatives amid FBI investigation
+Article saved: Ticketmaster is selling $1,000 Harry Styles tickets. Fans are not having it.
+Article saved: How to watch Rybakina vs. Swiatek online for free
+Article saved: Pinterest to lay off staff and shift resources to AI, company says
+Article saved: Lego unveils 5 more Star Wars Smart Play sets, including a Millennium Falcon: Where to preorder
+Article saved: Good news, bad news: Samsung Galaxy TriFold finally has a U.S. release date and price tag
+Article saved: OnlyFans baits and switches customers with false promises, lawsuit claims
+Article saved: Amazon has curated its top 100 Valentines Day gifts. Here are our 10 favorites from the list.
+Article saved: 30+ trendy gifts for teen girls in 2026, according to teenage girls IRL and online
+Article saved: TikTok in the USA so far: Outages and outrage
+Article saved: Google puts AI Mode conversations directly in AI Overviews in Search
+Article saved: The Disney+ and Hulu bundle just dipped to just $9.99/month —  heres how to cash in on the savings
+Article saved: Add this 65-inch TCL 4K QLED TV to your living room for its lowest price yet
+Article saved: Snag a pair of Apple AirPods Pro 3 for their lowest price yet
+Article saved: Artemis 2: Next steps for NASAs moon rocket after historic roll to pad
+Article saved: Clearing snow doesnt need to be hard — this trending roof rake is under $160 at Amazon
+Article saved: This robot snow blower is trending — and yes, you can buy one
+Article saved: Claude apps: How Anthropic will integrate Slack, Canva, and more
+Article saved: Daredevil: Born Again Season 2 trailer reunites Matt Murdock and Jessica Jones
+Article saved: Get dinner on the table faster with the Ninja Foodi Smart XL for its lowest price yet
+Article saved: Pornhub will soon be blocked for UK users — unless they take one step
+Article saved: BAFTA film nominations 2026: See the full list
+Article saved: The bright and colorful Lego Botanicals Mini Bonsai Trees set is $10 off at Amazon
+Article saved: How to use the internet to figure out what you’re into in bed
+Article saved: The DJI Mini 5 Pro Fly More Combo has hit its best-ever price at Amazon — save $500 right now
+Article saved: The best sex and dating apps for hooking up
+Article saved: Stephen Colbert calls BS on Trump administrations response to ICE killing
+Article saved: Magic: The Gathering Final Fantasy booster packs are under $10 at Amazon
+Article saved: Score the Samsung Galaxy Watch 8 Classic for its lowest-ever price at Amazon — save $150
+Article saved: Mayor Zohran Mamdani casually crashes Jimmy Fallons monologue to tell a joke
+Article saved: Clawdbot AI security risks you need to know before trying it
+Article saved: Jon Stewart goes scorched earth on Trump administration over ICE killing of Alex Pretti
+Article saved: How I make six figures on OnlyFans without taking my clothes off
+Article saved: The DJI Mini 4K drone is down to a record-low price at Amazon — save over $70 right now
+Article saved: NYT Connections hints today: Clues, answers for January 27, 2026
+Article saved: NYT Strands hints, answers for January 27, 2026
+Article saved: Wordle today: Answer, hints for January 27, 2026
+Article saved: NYT Pips hints, answers for January 27, 2026
+Article saved: The Hisense 65-inch Class QD6 Hi-QLED TV is $200 off in Best Buys 48-hour flash sale
+Article saved: NYT Connections Sports Edition today: Hints and answers for January 27, 2026
+Article saved: NYT Mini crossword answers, hints for January 27, 2026
+Article saved: Get the Pokémon TCG: Ascended Heroes Tech Sticker Collection for the best price at Amazon
+Article saved: Anthropic CEO warns that AI could bring slavery, bioterrorism, and unstoppable drone armies. Im not buying it.
+Article saved: Facebook and Instagram might get paid subscription tiers soon
+Article saved: The LG Ultragear QHD gaming monitor is down to its lowest-ever price at Amazon — save over $200
+Article saved: Wonder Man review: All hail the MCUs latest bromance
+Article saved: Artemis 2 launch: Livestream info, launch window details
+Article saved: This iPad Pro is probably more powerful than your laptop, and now it’s $400 off
+Article saved: The Wrecking Crew review: Jason Momoa and Dave Bautista resurrect the buddy-cop comedy with a BOOM
+Article saved: A new Stuff Your Kindle Day is live — download free romance books for 24 hours
+Article saved: How to watch the ICC T20 World Cup 2026 online for free
+Article saved: This like-new Kindle Scribe is heavily reduced at Amazon — save over $100 right now
+Article saved: The Shokz OpenFit Pro give some real competition to Boses open earbuds reign
+Article saved: The Dyson V15 vacuum is over $200 off at Amazon — score this limited-time deal
+Article saved: Upgrade to the Roku 65-inch TV for less at Amazon — save $70 right now
+Article saved: Save $60 on the new Amazon Fire TV 4 Series for a limited time
+Article saved: Clawdbot users are snapping up the Mac Mini — and it’s under $500 at Amazon
+Article saved: How to watch Alcaraz vs. de Minaur online for free
+Article saved: Sign up for The Farmers Dog and get 60% off the first box for your furry friend
+Article saved: Just got a new Android tablet? Heres how to set it up.
+Article saved: Jimmy Kimmel urges right to act after second deadly ICE shooting: How does this end?
+Article saved: MSI Prestige 14 Flip AI+ review: Intel Panther Lake arrives with a roar
+Article saved: Hurdle hints and answers for January 27, 2026
+Article saved: How to watch Gauff vs. Svitolina online for free
+Article saved: Shameful: Tech leaders react to ICE killing of Alex Pretti
+Article saved: Save up to $6,000 on Samsungs best TVs before the big game
+Article saved: Sony drops 2 new Bluetooth turntables for the first time in forever, days after pivoting away from TVs
+Article saved: Learn big ideas in a tiny bit of time with this book summary app
+Article saved: How to watch Sabalenka vs. Jovic online for free
+Article saved: Travel smarter with these earbuds that translate over 50 languages in real time
+Article saved: This AI-powered app lets you see exactly where your money is going
+Article saved: How to watch Zverev vs. Tien online for free
+Article saved: Super Bowl conspiracy theorists found the latest evidence the NFL rigged the script
+Article saved: The TikTok outage cause revealed
+Article saved: The Bose QuietComfort headphones are just $130, thanks to a refurbished deal at Woot
+Article saved: Duolingo launches Bad Bunny 101 ahead of Super Bowl LX halftime show
+Article saved: Can you finally read a Kindle book on your Kobo? Amazon launches DRM-free e-books.
+Article saved: The Roborock Q7 M5+ is down to $249.99 at Amazon
+Article saved: Send Help review: GLOP! Youre not ready for Rachel McAdams latest... but I love it
+Article saved: AI chatbots like ChatGPT are using info from Elon Musks Grokipedia, report reveals
+Article saved: Gemini-powered Siri could be days away from big reveal
+Article saved: The Mega Pokémon Pikachu build is nearly half off at Amazon — save over $45
+Article saved: Winter storm road conditions: How to check your area online
+Article saved: A Star Wars: Unlimited Booster Box is down to $36 (yes, really)
+Article saved: The best robot vacuums on a budget for 2026
+Article saved: The best E Ink tablets for 2026
+Article saved: Mark Zuckerberg was initially opposed to parental controls for AI chatbots, according to legal filing
+Article saved: Meta blocks links to ICE List, a Wiki that names agents
+Article saved: Adobe Photoshop upgrades its Firefly-powered generative-AI editing tools
+Article saved: Astronomers discover over 800 cosmic anomalies using a new AI tool
+Article saved: Sennheiser debuts new models of wired headphones and earbuds
+Article saved: Pornhub will become unavailable for many UK users as of February 2
+Article saved: Apple and Google reportedly still offer dozens of AI ‘nudify’ apps
+Article saved: Sonos introduces Amp Multi for complicated residential installs
+Article saved: The French government is ditching Zoom and Microsoft Teams for a home-grown alternative
+Article saved: TikTok settles to avoid major social media addiction lawsuit
+Article saved: Amazon Go and Fresh stores are closing as Amazon focuses on grocery delivery and Whole Foods
+Article saved: Google AI Plus is now available in the US for $8 a month
+Article saved: OpenAI releases Prism, a Claude Code-like app for scientific research
+Article saved: WhatsApp introduces an advanced security mode to protect against hackers
+Article saved: Yahoo is adding generative AI to its search engine
+Article saved: Samsung Galaxy Unpacked 2026: Everything we think the company will unveil
+Article saved: Gemini 3 is now Google's default model for AI Overviews
+Article saved: How to get NBC without Fubo ahead of the 2026 Winter Olympics
+Article saved: Pinterest is conducting a massive round of layoffs to prioritize 'AI-powered products and capabilities'
+Article saved: A TikTok US power outage caused a 'cascading systems failure' leading to multiple bugs
+Article saved: The EU tells Google to give external AI assistants the same access to Android as Gemini has
+Article saved: This 512GB Samsung P9 microSD Express card is 33 percent off
+Article saved: AirPods 4 with ANC drop to $119
+Article saved: TurboTax Deluxe has been discounted to $45 ahead of tax season
+Article saved: The Samsung Galaxy Z Trifold will cost $2,900 in the US
+Article saved: Lego has a new round of Star Wars sets that work with the Smart Brick
+Article saved: Apple's AirPods Pro 3 are on sale for $199 right now
+Article saved: California will investigate TikTok's alleged censorship of anti-Trump posts
+Article saved: The Morning After: Apple's new  louder, high-precision AirTag
+Article saved: The best Apple Watch accessories for 2026
+Article saved: The best wireless earbuds for 2026
+Article saved: People are uninstalling TikTok and downloading an indie competitor
+Article saved: Google agrees to $68 million settlement in voice assistant privacy lawsuit
+Article saved: Google aims to take the sting out of scheduling meetings with a new Gemini feature
+Article saved: Ubisoft proposes even more layoffs after last week's studio closures and game cancellations
+Article saved: How to generate AI images using ChatGPT
+Article saved: Claude now offers deeper integrations with apps like Canva and Slack
+Article saved: Trump admin reportedly plans to use AI to write federal regulations
+Article saved: ExpressVPN deal: Two-year plans are up to 78 percent off
+Article saved: Ball x Pit's first update brings an endless mode and much more to the chaos
+Article saved: Winter Olympics: How to watch, schedule of events, and everything else you need to know about the 2026 Milano Cortina games
+Article saved: Monarch Money's budgeting app is 50 percent off for new users right now
+Article saved: Blizzard lines up WoW, Overwatch, Hearthstone and Diablo showcases
+Article saved: Apple's new AirTag still doesn't have a keyring hole
+Article saved: Resident Evil Requiem gives series fans the best of both action and survival horror
+Article saved: The EU is investigating Grok and X over potentially illegal deepfakes
+Article saved: The Disney+ Hulu bundle is down to $10 for one month right now
+Article saved: The Bose QuietComfort Ultra headphones are 35 percent off
+Article saved: SOC teams are automating triage — but 40% will fail without governance boundaries
+Article saved: Contextual AI launches Agent Composer to turn enterprise RAG into production-ready AI agents
+Article saved: How Moonshot's Kimi K2.5 helps AI builders spin up agent swarms easier than ever
+Article saved: A European AI challenger goes after GitHub Copilot: Mistral launches Vibe 2.0
+Article saved: Theorem wants to stop AI-written bugs before they ship — and just raised $6M to do it
+Article saved: The AI visualization tech stack: From 2D to holograms
+Article saved: MCP shipped without authentication. Clawdbot shows why that's a problem.
+Article saved: Tim Cook Wants ‘Deescalation’ in Minneapolis
+Article saved: Looks Like American TikTok’s Problems Are Sending Users Flocking to Alternatives
+Article saved: FAA Could Have Prevented Fatal D.C. Plane Collision, Investigation Finds
+Article saved: OpenAI’s New Product Helps You Do ‘Vibe Physics’ Like Travis Kalanick
+Article saved: Winklevoss Twins Shut Down NFT Marketplace in Another Sign Crypto Art Is Dead
+Article saved: Uber Creates ‘AV Labs’ To Leverage Data For Future Robotaxi Routes
+Article saved: ‘Teenage Mutant Ninja Turtles’ Returns to an Era-Appropriate Format
+Article saved: The First ‘Faces of Death’ Teaser Is Here to Remind You That Yes, They Remade ‘Faces of Death’
+Article saved: Trump Urges Americans to Embrace a Suicidal Penguin as ‘Doomsday Clock’ Hits 85 Seconds to Midnight
+Article saved: A Bizarre Link Between Colorblindness and Bladder Cancer Might Actually Make Total Sense
+Article saved: Darth Maul’s Second Death Was Worth the Absurdity of His Survival
+Article saved: AI Sifts Through a Mountain of Hubble Data, Uncovers Hundreds of Cosmic Weirdos
+Article saved: Amazon’s Physical Store Experiment Has Failed
+Article saved: Ryan Coogler Has Always Been the Guy to Root For
+Article saved: Zoom Is the First Casualty in France’s War on American Big Tech
+Article saved: The ‘Puppet Girl’ of ‘A Knight of the Seven Kingdoms’ on Doing a Performance Within a Performance
+Article saved: Betting Against Elon Musk’s Predictions on Polymarket Might be the New Inverse Cramer
+Article saved: Can You Sue the White House Over an AI Deepfake?
+Article saved: These New ‘KPop Demon Hunter’ Toys Will Takedown Your Wallet
+Article saved: TikTok Swears It Didn’t Ban Sharing the Name ‘Epstein,’ as Gavin Newsom Announces Investigation
+
+Total articles fetched: 228

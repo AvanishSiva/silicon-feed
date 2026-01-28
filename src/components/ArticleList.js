@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Loading from "../components/Loading";
 import { Link } from "react-router-dom";
-import articles from "../assets/summaries.json";
+import { db } from "../firebase";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
 
 const ArticleList = () => {
@@ -13,9 +13,32 @@ const ArticleList = () => {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                setPosts(articles);
+                // Query Firestore summaries collection
+                const summariesRef = collection(db, 'summaries');
+                const q = query(summariesRef, orderBy('created_at', 'desc'));
+                const querySnapshot = await getDocs(q);
+
+                // Transform Firestore documents to match expected format
+                const summaries = querySnapshot.docs.map(doc => {
+                    const data = doc.data();
+                    return {
+                        id: doc.id,
+                        title: data.title || 'Untitled',
+                        summary: data.article || data.summary || '', // Use full article if available
+                        description: data.description || data.summary || '', // Use AI-generated description
+                        image: data.image || 'https://placehold.co/600x400?text=No+Image',
+                        created_at: data.created_at?.toDate?.() || new Date(),
+                        author: {
+                            name: 'SiliconFeed AI',
+                            description: 'AI-generated content',
+                            mail: 'ai@siliconfeed.com'
+                        }
+                    };
+                });
+
+                setPosts(summaries);
             } catch (err) {
-                console.error(err);
+                console.error('Error fetching from Firestore:', err);
                 setError(err.message);
             } finally {
                 setLoading(false);
