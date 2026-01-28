@@ -6,7 +6,7 @@ const ParticleNetwork = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    const ParticleNetworkAnimation = function () {};
+    const ParticleNetworkAnimation = function () { };
     const PNA = ParticleNetworkAnimation;
 
     PNA.prototype.init = function () {
@@ -25,7 +25,7 @@ const ParticleNetwork = () => {
         this.sizeCanvas();
         this.particleNetwork.createParticles();
       });
-      
+
     };
 
     PNA.prototype.sizeCanvas = function () {
@@ -77,8 +77,8 @@ const ParticleNetwork = () => {
         velocity: 1,
         density: 15000,
         netLineDistance: 200,
-        netLineColor: '#929292',
-        particleColors: ['#aaa'],
+        netLineColor: 'rgba(255, 107, 53, 0.15)',
+        particleColors: ['rgba(255, 107, 53, 0.8)', 'rgba(255, 87, 34, 0.6)', 'rgba(176, 176, 176, 0.4)'],
       };
       this.canvas = parent.canvas;
       this.ctx = parent.ctx;
