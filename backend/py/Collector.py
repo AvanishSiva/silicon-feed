@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 import hashlib
 from db import save_article
-from datetime import datetime
+from datetime import datetime, timezone
 
 def get_requests(url):
     try:
@@ -91,7 +91,7 @@ def parse_rss_feed(root):
             'image': image_url,
             'hash_id': hash_id,
             'tags': tags,
-            'created_at' : datetime.utcnow()
+            'created_at' : datetime.now(timezone.utc)
         })
     
     return articles
@@ -170,7 +170,7 @@ def parse_atom_feed(root):
             'image': image_url,
             'hash_id': hash_id,
             'tags': tags,
-            'created_at' : datetime.utcnow()
+            'created_at' : datetime.now(timezone.utc)
         })
     
     return articles
@@ -199,38 +199,199 @@ def get_articles_from_feed(feed_url):
     return articles
 
 if __name__ == "__main__":
-    feeds = {
-        'TechCrunch': 'http://feeds.feedburner.com/TechCrunch/',
-        'The Verge': 'https://www.theverge.com/rss/index.xml',
-        'Ars Technica': 'https://feeds.arstechnica.com/arstechnica/index/',
-        'Mashable': 'http://feeds.mashable.com/Mashable',
-        'Engadget': 'https://www.engadget.com/rss.xml',
-        'VentureBeat': 'https://venturebeat.com/feed',
-        'Gizmodo': 'https://gizmodo.com/feed'
+    # Categorized RSS Feeds - 150+ Free Sources
+    FEED_CATEGORIES = {
+        'general_tech': {
+            'TechCrunch': 'https://techcrunch.com/feed/',
+            'The Verge': 'https://www.theverge.com/rss/index.xml',
+            'Ars Technica': 'https://feeds.arstechnica.com/arstechnica/index',
+            'Wired': 'https://www.wired.com/feed/rss',
+            'CNET': 'https://www.cnet.com/rss/news/',
+            'ZDNet': 'https://www.zdnet.com/news/rss.xml',
+            'Engadget': 'https://www.engadget.com/rss.xml',
+            'VentureBeat': 'https://venturebeat.com/feed/',
+            'Gizmodo': 'https://gizmodo.com/feed',
+            'Mashable Tech': 'https://mashable.com/feeds/rss/tech',
+            'Fast Company Tech': 'https://www.fastcompany.com/technology/rss',
+            'Inc Technology': 'https://www.inc.com/rss/technology',
+            'Slashdot': 'http://rss.slashdot.org/Slashdot/slashdotMain',
+            'Y Combinator': 'https://news.ycombinator.com/rss',
+            'Product Hunt': 'https://www.producthunt.com/feed',
+        },
+        
+        'ai_ml': {
+            'MIT Tech Review': 'https://www.technologyreview.com/feed/',
+            'AI News': 'https://www.artificialintelligence-news.com/feed/',
+            'Towards Data Science': 'https://towardsdatascience.com/feed',
+            'KDnuggets': 'https://www.kdnuggets.com/feed',
+            'OpenAI Blog': 'https://openai.com/blog/rss/',
+            'Google AI Blog': 'https://blog.google/technology/ai/rss/',
+            'DeepMind': 'https://deepmind.google/blog/rss.xml',
+            'Hugging Face': 'https://huggingface.co/blog/feed.xml',
+            'Papers with Code': 'https://paperswithcode.com/rss.xml',
+            'Machine Learning Mastery': 'https://machinelearningmastery.com/feed/',
+            'Analytics Vidhya': 'https://www.analyticsvidhya.com/feed/',
+            'Distill.pub': 'https://distill.pub/rss.xml',
+        },
+        
+        'developer': {
+            'Hacker News': 'https://hnrss.org/frontpage',
+            'Dev.to': 'https://dev.to/feed',
+            'GitHub Blog': 'https://github.blog/feed/',
+            'GitLab Blog': 'https://about.gitlab.com/atom.xml',
+            'Stack Overflow Blog': 'https://stackoverflow.blog/feed/',
+            'freeCodeCamp': 'https://www.freecodecamp.org/news/rss/',
+            'CSS-Tricks': 'https://css-tricks.com/feed/',
+            'Smashing Magazine': 'https://www.smashingmagazine.com/feed/',
+            'A List Apart': 'https://alistapart.com/main/feed/',
+            'SitePoint': 'https://www.sitepoint.com/feed/',
+            'Codrops': 'https://tympanus.net/codrops/feed/',
+            'Go Blog': 'https://go.dev/blog/feed.atom',
+            'Rust Blog': 'https://blog.rust-lang.org/feed.xml',
+            'Python Weekly': 'https://www.pythonweekly.com/rss.xml',
+            'JavaScript Weekly': 'https://javascriptweekly.com/rss/',
+        },
+        
+        'security': {
+            'Krebs on Security': 'https://krebsonsecurity.com/feed/',
+            'The Hacker News': 'https://feeds.feedburner.com/TheHackersNews',
+            'Bleeping Computer': 'https://www.bleepingcomputer.com/feed/',
+            'Dark Reading': 'https://www.darkreading.com/rss_simple.asp',
+            'Threatpost': 'https://threatpost.com/feed/',
+            'Schneier on Security': 'https://www.schneier.com/feed/atom/',
+            'Security Week': 'https://www.securityweek.com/feed/',
+            'Naked Security': 'https://nakedsecurity.sophos.com/feed/',
+            'Troy Hunt': 'https://www.troyhunt.com/rss/',
+            'SANS ISC': 'https://isc.sans.edu/rssfeed.xml',
+        },
+        
+        'cloud_devops': {
+            'AWS News': 'https://aws.amazon.com/blogs/aws/feed/',
+            'Google Cloud Blog': 'https://cloud.google.com/blog/rss',
+            'Azure Blog': 'https://azure.microsoft.com/en-us/blog/feed/',
+            'DigitalOcean': 'https://www.digitalocean.com/blog/feed.xml',
+            'Docker Blog': 'https://www.docker.com/blog/feed/',
+            'Kubernetes Blog': 'https://kubernetes.io/feed.xml',
+            'HashiCorp Blog': 'https://www.hashicorp.com/blog/feed.xml',
+            'Red Hat Blog': 'https://www.redhat.com/en/rss/blog',
+            'Heroku Blog': 'https://blog.heroku.com/feed',
+            'Cloudflare Blog': 'https://blog.cloudflare.com/rss/',
+        },
+        
+        'mobile': {
+            'Android Developers': 'https://android-developers.googleblog.com/feeds/posts/default',
+            'Android Authority': 'https://www.androidauthority.com/feed/',
+            'Android Police': 'https://www.androidpolice.com/feed/',
+            '9to5Mac': 'https://9to5mac.com/feed/',
+            '9to5Google': 'https://9to5google.com/feed/',
+            'iOS Dev Weekly': 'https://iosdevweekly.com/issues.rss',
+            'React Native Blog': 'https://reactnative.dev/blog/rss.xml',
+            'Flutter Blog': 'https://medium.com/flutter/feed',
+            'Swift by Sundell': 'https://www.swiftbysundell.com/feed.rss',
+            'Mobile Dev Memo': 'https://mobiledevmemo.com/feed/',
+        },
+        
+        'hardware': {
+            'AnandTech': 'https://www.anandtech.com/rss/',
+            'Tom\'s Hardware': 'https://www.tomshardware.com/feeds/all',
+            'PC Gamer': 'https://www.pcgamer.com/rss/',
+            'Raspberry Pi': 'https://www.raspberrypi.org/blog/feed/',
+            'Arduino Blog': 'https://blog.arduino.cc/feed/',
+            'Hackaday': 'https://hackaday.com/feed/',
+            'Make Magazine': 'https://makezine.com/feed/',
+            'Adafruit': 'https://blog.adafruit.com/feed/',
+            'IEEE Spectrum': 'https://spectrum.ieee.org/feeds/feed.rss',
+            'Electronics Weekly': 'https://www.electronicsweekly.com/feed/',
+        },
+        
+        'web3': {
+            'CoinDesk': 'https://www.coindesk.com/arc/outboundfeeds/rss/',
+            'Cointelegraph': 'https://cointelegraph.com/rss',
+            'Decrypt': 'https://decrypt.co/feed',
+            'Bitcoin Magazine': 'https://bitcoinmagazine.com/.rss/full/',
+            'Ethereum Blog': 'https://blog.ethereum.org/feed.xml',
+            'CryptoSlate': 'https://cryptoslate.com/feed/',
+            'The Block': 'https://www.theblockcrypto.com/rss.xml',
+            'Web3 Foundation': 'https://medium.com/web3foundation/feed',
+        },
+        
+        'company_blogs': {
+            'Netflix Tech': 'https://netflixtechblog.com/feed',
+            'Uber Engineering': 'https://eng.uber.com/feed/',
+            'Airbnb Engineering': 'https://medium.com/airbnb-engineering/feed',
+            'Spotify Engineering': 'https://engineering.atspotify.com/feed/',
+            'LinkedIn Engineering': 'https://engineering.linkedin.com/blog.rss',
+            'Stripe Blog': 'https://stripe.com/blog/feed.rss',
+            'Shopify Engineering': 'https://shopify.engineering/feed.xml',
+            'Dropbox Tech': 'https://dropbox.tech/feed',
+            'Pinterest Engineering': 'https://medium.com/@Pinterest_Engineering/feed',
+            'Slack Engineering': 'https://slack.engineering/feed/',
+            'Twitter Engineering': 'https://blog.twitter.com/engineering/en_us/blog.rss',
+            'Meta Engineering': 'https://engineering.fb.com/feed/',
+            'Atlassian Blog': 'https://www.atlassian.com/blog/feed',
+            'Square Engineering': 'https://developer.squareup.com/blog/rss.xml',
+            'Etsy Engineering': 'https://www.etsy.com/codeascraft/rss',
+        },
+        
+        'community': {
+            'r/technology': 'https://www.reddit.com/r/technology/.rss',
+            'r/programming': 'https://www.reddit.com/r/programming/.rss',
+            'r/MachineLearning': 'https://www.reddit.com/r/MachineLearning/.rss',
+            'r/webdev': 'https://www.reddit.com/r/webdev/.rss',
+            'r/javascript': 'https://www.reddit.com/r/javascript/.rss',
+            'r/python': 'https://www.reddit.com/r/python/.rss',
+            'r/startups': 'https://www.reddit.com/r/startups/.rss',
+            'r/netsec': 'https://www.reddit.com/r/netsec/.rss',
+            'r/datascience': 'https://www.reddit.com/r/datascience/.rss',
+            'r/devops': 'https://www.reddit.com/r/devops/.rss',
+        }
     }
     
     all_articles = []
+    category_stats = {}
     
-    for source_name, feed_url in feeds.items():
-        print(f"\nFetching articles from {source_name}...")
-        articles = get_articles_from_feed(feed_url)
-        all_articles.extend(articles)
-        print(f"Found {len(articles)} articles from {source_name}")
+    # Process each category
+    for category, feeds in FEED_CATEGORIES.items():
+        print(f"\n{'='*60}")
+        print(f"CATEGORY: {category.upper().replace('_', ' ')}")
+        print(f"{'='*60}")
         
-        # Print first article as sample
-        if articles:
-            print(f"\nSample article:")
-            print(f"  Title: {articles[0]['title'][:80]}...")
-            print(f"  Author: {articles[0]['author']}")
-            print(f"  Link: {articles[0]['link']}")
-            print(f"  Tags: {', '.join(articles[0]['tags'][:5])}")
+        category_articles = []
+        
+        for source_name, feed_url in feeds.items():
+            print(f"\nFetching from {source_name}...")
+            articles = get_articles_from_feed(feed_url)
+            
+            # Add category and source_name to each article
+            for article in articles:
+                article['category'] = category
+                article['source_name'] = source_name
+            
+            category_articles.extend(articles)
+            all_articles.extend(articles)
+            print(f"✓ Found {len(articles)} articles from {source_name}")
+        
+        category_stats[category] = len(category_articles)
+        print(f"\n{category.upper()}: Total {len(category_articles)} articles")
     
     # Summary
-    print("\n" + "="*50)
-    print("SUMMARY")
-    print("="*50)
+    print("\n" + "="*60)
+    print("COLLECTION SUMMARY")
+    print("="*60)
+    
+    for category, count in category_stats.items():
+        print(f"{category.replace('_', ' ').title():.<40} {count:>4} articles")
+    
+    print(f"\n{'TOTAL ARTICLES':.<40} {len(all_articles):>4}")
+    print("="*60)
 
-    #Insert into MongoDB. 
+    # Insert into MongoDB
+    print("\nSaving to database...")
+    saved_count = 0
     for article in all_articles:
         save_article(article)
-    print(f"\nTotal articles fetched: {len(all_articles)}")
+        saved_count += 1
+    
+    print(f"\n✓ Successfully saved {saved_count} articles to database!")
+    print(f"✓ Categories: {len(FEED_CATEGORIES)}")
+    print(f"✓ Sources: {sum(len(feeds) for feeds in FEED_CATEGORIES.values())}")

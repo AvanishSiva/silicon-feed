@@ -1,6 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState('idle'); // idle, loading, success, error
+  const [message, setMessage] = useState('');
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    if (!email || !email.includes('@')) {
+      setStatus('error');
+      setMessage('Please enter a valid email address.');
+      return;
+    }
+
+    try {
+      setStatus('loading');
+      await addDoc(collection(db, 'subscribers'), {
+        email,
+        subscribedAt: serverTimestamp(),
+        source: 'footer_form'
+      });
+      setStatus('success');
+      setMessage('Thanks for subscribing!');
+      setEmail('');
+      setTimeout(() => {
+        setStatus('idle');
+        setMessage('');
+      }, 5000);
+    } catch (error) {
+      console.error('Error subscribing:', error);
+      setStatus('error');
+      setMessage('Something went wrong. Please try again.');
+    }
+  };
+
   return (
     <footer className="relative mt-20 py-16" style={{ background: 'var(--color-bg-secondary)', borderTop: '1px solid var(--color-border)' }}>
       <div className="max-w-7xl mx-auto px-6">
@@ -51,33 +86,44 @@ const Footer = () => {
           </div>
 
           {/* Newsletter */}
-          <div>
+          <div id="newsletter-section">
             <h4 className="text-lg font-semibold mb-4 text-white">
               Stay Updated
             </h4>
             <p className="mb-4" style={{ color: 'var(--color-text-secondary)' }}>
               Get the latest tech news delivered to your inbox.
             </p>
-            <div className="flex gap-2">
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
+                disabled={status === 'loading' || status === 'success'}
                 className="flex-1 px-4 py-2 rounded-full glass-effect-light focus:outline-none focus:ring-2 transition-all duration-300"
                 style={{
                   color: 'var(--color-text-primary)',
-                  border: '1px solid var(--color-border)'
+                  border: '1px solid var(--color-border)',
+                  minWidth: '0' // Prevent overflow
                 }}
               />
               <button
-                className="px-6 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 hover-glow"
+                type="submit"
+                disabled={status === 'loading' || status === 'success'}
+                className="px-6 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 hover-glow disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                 style={{
-                  background: 'var(--gradient-primary)',
+                  background: status === 'success' ? '#4CAF50' : 'var(--gradient-primary)',
                   color: 'white'
                 }}
               >
-                Subscribe
+                {status === 'loading' ? 'Joining...' : status === 'success' ? 'Joined!' : 'Subscribe'}
               </button>
-            </div>
+            </form>
+            {message && (
+              <p className={`mt-3 text-sm ${status === 'error' ? 'text-red-500' : 'text-green-500'}`}>
+                {message}
+              </p>
+            )}
           </div>
         </div>
 

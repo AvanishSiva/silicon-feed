@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import Loading from "../components/Loading";
 import { Link } from "react-router-dom";
 import { db } from "../firebase";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import ScrollReveal from "./ScrollReveal";
+import CategoryBadge from "./CategoryBadge";
 
-const ArticleList = () => {
+import defaultCover from "../assets/default-cover.png";
+
+const ArticleList = ({ selectedCategory = 'all' }) => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -13,26 +16,80 @@ const ArticleList = () => {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
+                setLoading(true);
+                setError(null);
                 const summariesRef = collection(db, 'summaries');
-                const q = query(summariesRef, orderBy('created_at', 'desc'));
-                const querySnapshot = await getDocs(q);
 
-                const summaries = querySnapshot.docs.map(doc => {
-                    const data = doc.data();
-                    return {
-                        id: doc.id,
-                        title: data.title || 'Untitled',
-                        summary: data.article || data.summary || '',
-                        description: data.description || data.summary || '',
-                        image: data.image || 'https://placehold.co/600x400?text=No+Image',
-                        created_at: data.created_at?.toDate?.() || new Date(),
-                        author: {
-                            name: 'SiliconFeed AI',
-                            description: 'AI-generated content',
-                            mail: 'ai@siliconfeed.com'
+                let summaries = [];
+
+                try {
+                    // Try to query with category filter
+                    let q = query(summariesRef, orderBy('created_at', 'desc'));
+
+                    if (selectedCategory && selectedCategory !== 'all') {
+                        q = query(summariesRef,
+                            where('category', '==', selectedCategory),
+                            orderBy('created_at', 'desc')
+                        );
+                    }
+
+                    const querySnapshot = await getDocs(q);
+
+                    summaries = querySnapshot.docs.map(doc => {
+                        const data = doc.data();
+                        return {
+                            id: doc.id,
+                            title: data.title || 'Untitled',
+                            summary: data.article || data.summary || '',
+                            description: data.description || data.summary || '',
+                            image: (data.image && data.image !== "No image") ? data.image : defaultCover,
+                            created_at: data.created_at?.toDate?.() || new Date(),
+                            category: data.category || 'general_tech',
+                            author: {
+                                name: 'SiliconFeed AI',
+                                description: 'AI-generated content',
+                                mail: 'ai@siliconfeed.com'
+                            }
+                        };
+                    });
+                } catch (indexError) {
+                    // If index error, fall back to fetching all articles and filter client-side
+                    if (indexError.message.includes('index')) {
+                        console.warn('Firestore index not ready. Fetching all articles...');
+                        const q = query(summariesRef, orderBy('created_at', 'desc'));
+                        const querySnapshot = await getDocs(q);
+
+                        let allSummaries = querySnapshot.docs.map(doc => {
+                            const data = doc.data();
+                            return {
+                                id: doc.id,
+                                title: data.title || 'Untitled',
+                                summary: data.article || data.summary || '',
+                                description: data.description || data.summary || '',
+                                image: (data.image && data.image !== "No image") ? data.image : defaultCover,
+                                created_at: data.created_at?.toDate?.() || new Date(),
+                                category: data.category || 'general_tech',
+                                author: {
+                                    name: 'SiliconFeed AI',
+                                    description: 'AI-generated content',
+                                    mail: 'ai@siliconfeed.com'
+                                }
+                            };
+                        });
+
+                        // Filter client-side if category is selected
+                        if (selectedCategory && selectedCategory !== 'all') {
+                            summaries = allSummaries.filter(article => article.category === selectedCategory);
+                        } else {
+                            summaries = allSummaries;
                         }
-                    };
-                });
+
+                        // Show a warning message
+                        setError('Note: Firestore index is building. Category filtering may be slow. Check console for setup instructions.');
+                    } else {
+                        throw indexError;
+                    }
+                }
 
                 setPosts(summaries);
             } catch (err) {
@@ -44,7 +101,7 @@ const ArticleList = () => {
         };
 
         fetchArticles();
-    }, []);
+    }, [selectedCategory]);
 
     if (loading) {
         return <Loading />;
@@ -59,19 +116,19 @@ const ArticleList = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12" id="articles-section">
             {/* Section Header */}
             <ScrollReveal animation="slideUp">
-                <div className="mb-12">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
+                <div className="mb-8 md:mb-12">
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4 gradient-text">
                         Latest Stories
                     </h2>
-                    <div className="w-24 h-1 rounded-full" style={{ background: 'var(--gradient-primary)' }}></div>
+                    <div className="w-16 md:w-24 h-1 rounded-full" style={{ background: 'var(--gradient-primary)' }}></div>
                 </div>
             </ScrollReveal>
 
             {/* Articles Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {posts.map((post, index) => (
                     <ScrollReveal
                         key={post.id}
@@ -99,16 +156,7 @@ const ArticleList = () => {
 
                                     {/* Category Badge */}
                                     <div className="absolute top-4 left-4">
-                                        <span
-                                            className="px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md"
-                                            style={{
-                                                background: 'rgba(255, 107, 53, 0.2)',
-                                                border: '1px solid rgba(255, 107, 53, 0.4)',
-                                                color: 'var(--color-accent-primary)'
-                                            }}
-                                        >
-                                            Technology
-                                        </span>
+                                        <CategoryBadge category={post.category} size="small" showIcon={true} />
                                     </div>
 
                                     {/* Reading Time */}
