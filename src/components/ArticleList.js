@@ -42,7 +42,7 @@ const ArticleList = ({ selectedCategory = 'all' }) => {
                             title: data.title || 'Untitled',
                             summary: data.article || data.summary || '',
                             description: data.description || data.summary || '',
-                            image: (data.image && data.image !== "No image") ? data.image : defaultCover,
+                            image: (data.image && data.image !== "No image" && !data.image.includes('placehold.co')) ? data.image : defaultCover,
                             created_at: data.created_at?.toDate?.() || new Date(),
                             category: data.category || 'general_tech',
                             author: {
@@ -66,7 +66,7 @@ const ArticleList = ({ selectedCategory = 'all' }) => {
                                 title: data.title || 'Untitled',
                                 summary: data.article || data.summary || '',
                                 description: data.description || data.summary || '',
-                                image: (data.image && data.image !== "No image") ? data.image : defaultCover,
+                                image: (data.image && data.image !== "No image" && !data.image.includes('placehold.co')) ? data.image : defaultCover,
                                 created_at: data.created_at?.toDate?.() || new Date(),
                                 category: data.category || 'general_tech',
                                 author: {

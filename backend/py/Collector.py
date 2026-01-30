@@ -2,7 +2,8 @@ import requests
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 import hashlib
-from db import save_article
+# REMOVED: from db import save_article
+from firebase_utils import initialize_firebase, save_raw_article, cleanup_old_articles
 from datetime import datetime, timezone
 
 def get_requests(url):
@@ -385,13 +386,25 @@ if __name__ == "__main__":
     print(f"\n{'TOTAL ARTICLES':.<40} {len(all_articles):>4}")
     print("="*60)
 
-    # Insert into MongoDB
-    print("\nSaving to database...")
+    # Initialize Firebase
+    if not initialize_firebase():
+        print("Failed to initialize Firebase. Exiting.")
+        exit(1)
+
+    # Insert into Firestore
+    print("\nSaving to Firestore (raw_articles)...")
     saved_count = 0
     for article in all_articles:
-        save_article(article)
-        saved_count += 1
+        if save_raw_article(article):
+            saved_count += 1
     
-    print(f"\n✓ Successfully saved {saved_count} articles to database!")
+    print(f"\n✓ Successfully saved {saved_count} articles to Firestore!")
+    
+    # Run cleanup
+    print("\nRunning cleanup...")
+    cleanup_old_articles(days=2)
+    print("Cleanup complete.")
+    
+    print(f"✓ Categories: {len(FEED_CATEGORIES)}")
     print(f"✓ Categories: {len(FEED_CATEGORIES)}")
     print(f"✓ Sources: {sum(len(feeds) for feeds in FEED_CATEGORIES.values())}")

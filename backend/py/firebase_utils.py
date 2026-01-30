@@ -3,13 +3,16 @@ from firebase_admin import credentials, storage
 import requests
 import os
 import uuid
+from firebase_admin import firestore
+from datetime import datetime, timedelta, timezone
 
-# Global bucket reference
+# Global bucket and db references
 bucket = None
+db = None
 
-def initialize_firebase(service_account_path='serviceAccountKey.json', storage_bucket='siliconfeed-e4d06.firebasestorage.app'):
+def initialize_firebase(service_account_path='backend/serviceAccountKey.json', storage_bucket='siliconfeed-e4d06.firebasestorage.app'):
     """Initializes the Firebase Admin SDK. Call this once at startup."""
-    global bucket
+    global bucket, db
     
     # Check if a default app is already initialized to avoid errors on reload
     if not firebase_admin._apps:
@@ -29,7 +32,9 @@ def initialize_firebase(service_account_path='serviceAccountKey.json', storage_b
             print(f"Failed to initialize Firebase: {e}")
             return False
     
+    
     bucket = storage.bucket()
+    db = firestore.client()
     return True
 
 def upload_image_from_url(image_url, destination_folder='article_images'):
@@ -79,3 +84,82 @@ def upload_image_from_url(image_url, destination_folder='article_images'):
     except Exception as e:
         print(f"Error uploading image {image_url}: {e}")
         return None
+
+def save_raw_article(article):
+    """
+    Saves a raw article to the 'raw_articles' collection in Firestore.
+    Uses hash_id as the document ID to prevent duplicates.
+    """
+    global db
+    if db is None:
+        # Auto-initialize if needed (e.g. running from script)
+        if not initialize_firebase():
+             print("DB not initialized and failed to auto-init")
+             return False
+
+    try:
+        # Ensure created_at is a datetime object
+        if isinstance(article.get('created_at'), str):
+             # Try to parse if string, or set to now
+             article['created_at'] = datetime.now(timezone.utc)
+        
+        # Use hash_id as document ID to enforce uniqueness
+        doc_ref = db.collection('raw_articles').document(article['hash_id'])
+        doc_ref.set(article)
+        print(f"Saved raw article: {article['title']}")
+        return True
+    except Exception as e:
+        print(f"Error saving raw article {article.get('title')}: {e}")
+        return False
+
+def cleanup_old_articles(days=2):
+    """
+    Deletes raw articles older than 'days' from the 'raw_articles' collection.
+    This prevents the collection from growing indefinitely.
+    """
+    global db
+    if db is None:
+        initialize_firebase()
+
+    try:
+        cutoff_date = datetime.now(timezone.utc) - timedelta(days=days)
+        print(f"Cleaning up articles older than: {cutoff_date}")
+        
+        # specific to Firestore query
+        docs = db.collection('raw_articles').where('created_at', '<', cutoff_date).stream()
+        
+        deleted_count = 0
+        for doc in docs:
+            doc.reference.delete()
+            deleted_count += 1
+            
+        print(f"Deleted {deleted_count} old raw articles.")
+        return deleted_count
+    except Exception as e:
+        print(f"Error cleaning up old articles: {e}")
+        return 0
+
+def fetch_raw_articles(start_date=None, end_date=None, category=None):
+    """
+    Fetches raw articles from Firestore for processing.
+    """
+    global db
+    if db is None:
+        initialize_firebase()
+
+    try:
+        query = db.collection('raw_articles')
+        
+        if category:
+            query = query.where('category', '==', category)
+            
+        if start_date:
+            query = query.where('created_at', '>=', start_date)
+            
+        if end_date:
+            query = query.where('created_at', '<', end_date)
+            
+        return [doc.to_dict() for doc in query.stream()]
+    except Exception as e:
+        print(f"Error fetching raw articles: {e}")
+        return []
